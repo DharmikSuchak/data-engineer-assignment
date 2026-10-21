@@ -12,10 +12,12 @@ ORDER BY r.length DESC
 LIMIT 1;
 
 -- 3 and 4. Ninth page of families, 15 per page: (9 - 1) * 15 = 120.
+-- Check each linked sequence length once before joining back to its families.
 SELECT f.rfam_acc, f.rfam_id, MAX(r.length) AS max_sequence_length
-FROM family AS f
-JOIN full_region AS fr ON fr.rfam_acc = f.rfam_acc
-JOIN rfamseq AS r ON r.rfamseq_acc = fr.rfamseq_acc
+FROM (SELECT DISTINCT rfamseq_acc FROM full_region) AS ids
+STRAIGHT_JOIN rfamseq AS r ON r.rfamseq_acc = ids.rfamseq_acc
+STRAIGHT_JOIN full_region AS fr ON fr.rfamseq_acc = ids.rfamseq_acc
+STRAIGHT_JOIN family AS f ON f.rfam_acc = fr.rfam_acc
 WHERE r.length > 1000000
 GROUP BY f.rfam_acc, f.rfam_id
 ORDER BY max_sequence_length DESC, f.rfam_acc

@@ -26,9 +26,9 @@ Run the file with a MySQL client against [Rfam's public read only database](http
 mysql --user rfamro --host mysql-rfam-public.ebi.ac.uk --port 4497 --database Rfam < rfam_queries.sql
 ```
 
-The queries count distinct Acacia taxonomy names, find the wheat species with the longest `rfamseq` sequence, and return page 9 of families ordered by their longest linked sequence. Each page has 15 rows, so page 9 starts after 120 rows. `rfamseq.length` gives the full sequence length. `full_region` links families to sequences.
+The queries count distinct Acacia taxonomy names, find the wheat species with the longest `rfamseq` sequence, and return page 9 of families ordered by their longest linked sequence. Each page has 15 rows, so page 9 starts after 120 rows. `rfamseq.length` gives the full sequence length. `full_region` links families to sequences. The final query checks each distinct sequence ID once before linking it back to families.
 
-On 20 October 2026, the first two queries returned **326** and **Triticum durum (durum wheat)** (`LT934116.1`, length **836,514,780**). The final query passed Rfam's syntax and query plan check, but its full execution exceeded a two minute test timeout. Results may change when Rfam updates its public database.
+On 21 October 2026, the first two queries returned **326** and **Triticum durum (durum wheat)** (`LT934116.1`, length **836,514,780**). The final query returned 15 rows in about three minutes. Runtime and results may change when Rfam updates its public database.
 
 ## Question 3 Unix shell
 
