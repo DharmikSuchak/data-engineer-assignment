@@ -2,6 +2,8 @@
 
 This repository contains answers for the Python and SQL questions in the take home assignment.
 
+The [video walkthrough](https://youtu.be/p711B9lx83E) accompanies these answers.
+
 ## Question 1 Python product search
 
 Requires Python 3.10 or newer, internet access, and the packages in `requirements.txt`.
@@ -18,7 +20,7 @@ The program reports request failures instead of presenting an empty product list
 
 ## Question 2 SQL
 
-The answers are in [`rfam_queries.sql`](rfam_queries.sql). Parts 3 and 4 of this question are answered by one query.
+The answers are in [`rfam_queries.sql`](rfam_queries.sql). In the assignment, SQL item 4 says "Write the SQL query for this." I read that as the instruction to write the family pagination query described in item 3, so there is no separate fourth query.
 
 Run the file with a MySQL client against [Rfam's public read only database](https://docs.rfam.org/en/latest/database.html).
 
@@ -26,9 +28,9 @@ Run the file with a MySQL client against [Rfam's public read only database](http
 mysql --user rfamro --host mysql-rfam-public.ebi.ac.uk --port 4497 --database Rfam < rfam_queries.sql
 ```
 
-The queries count distinct Acacia taxonomy names, find the wheat species with the longest `rfamseq` sequence, and return page 9 of families ordered by their longest linked sequence. Each page has 15 rows, so page 9 starts after 120 rows. `rfamseq.length` gives the full sequence length. `full_region` links families to sequences. The final query checks each distinct sequence ID once before linking it back to families.
+The queries count distinct Acacia taxonomy names, find the wheat species with the longest `rfamseq` sequence, and return page 9 of families ordered by their longest linked sequence. Each page has 15 rows, so page 9 starts after 120 rows. `rfamseq.length` gives the full sequence length. `full_region` links families to sequences.
 
-On 21 October 2026, the first two queries returned **326** and **Triticum durum (durum wheat)** (`LT934116.1`, length **836,514,780**). The final query returned 15 rows in about three minutes. Runtime and results may change when Rfam updates its public database.
+On 21 October 2026, the first two queries returned **326** and **Triticum durum (durum wheat)** (`LT934116.1`, length **836,514,780**). The final query passed the database's query plan check but did not finish within a four minute test. Runtime and results may change when Rfam updates its public database.
 
 ## Question 3 Unix shell
 
