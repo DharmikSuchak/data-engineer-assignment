@@ -4,8 +4,8 @@ import argparse
 import csv
 import sys
 
-import requests
 from bs4 import BeautifulSoup
+from curl_cffi import requests
 
 
 SEARCH_URL = "https://mdcomputers.in/"
@@ -39,14 +39,14 @@ def main():
         response = requests.get(
             SEARCH_URL,
             params={"route": "product/search", "search": args.search_term},
-            headers={"User-Agent": "Mozilla/5.0"},
+            impersonate="chrome",
             timeout=20,
         )
         if "<title>Attention Required! | Cloudflare" in response.text:
             raise ValueError("MD Computers blocked this automated request")
         response.raise_for_status()
         products = extract_products(response.text)
-    except (requests.RequestException, ValueError) as error:
+    except (requests.exceptions.RequestException, ValueError) as error:
         parser.exit(1, f"Could not read search results: {error}\n")
 
     if not products and "no product that matches" not in response.text.lower():

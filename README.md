@@ -4,7 +4,7 @@ This repository contains answers for the Python and SQL questions in the take ho
 
 ## Question 1 Python product search
 
-Requires Python 3.9 or newer, internet access, and the packages in `requirements.txt`.
+Requires Python 3.10 or newer, internet access, and the packages in `requirements.txt`.
 
 ```sh
 python3 -m venv .venv
@@ -14,7 +14,7 @@ python3 -m venv .venv
 
 Pass a search term to the program. It requests the first MD Computers search results page and prints each listed product's name, displayed price, and URL as CSV. To save the output, append `> products.csv` to the last command. CSV handles commas in product names and is easy to inspect or import. Product images and later result pages are outside the requested scope.
 
-The program reports request failures instead of presenting an empty product list as a successful scrape. During testing on 20 October 2026, MD Computers returned HTTP 403 to automated requests. A successful live scrape still needs to be verified.
+The program reports request failures instead of presenting an empty product list as a successful scrape. It uses a browser style HTTP client because MD Computers blocked basic Python requests during testing. The example search returned 20 product rows on 21 October 2026.
 
 ## Question 2 SQL
 
